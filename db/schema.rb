@@ -11,18 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150613170127) do
+ActiveRecord::Schema.define(version: 20150613172050) do
 
-  create_table "food_foodstaffs", force: :cascade do |t|
-    t.integer  "food_id",      limit: 4
-    t.integer  "foodstaff_id", limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+  create_table "food_ingredients", force: :cascade do |t|
+    t.integer  "food_id",       limit: 4
+    t.integer  "ingredient_id", limit: 4
+    t.float    "quantity",      limit: 24
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
-  add_index "food_foodstaffs", ["food_id", "foodstaff_id"], name: "index_food_foodstaffs_on_food_id_and_foodstaff_id", unique: true, using: :btree
-  add_index "food_foodstaffs", ["food_id"], name: "index_food_foodstaffs_on_food_id", using: :btree
-  add_index "food_foodstaffs", ["foodstaff_id"], name: "index_food_foodstaffs_on_foodstaff_id", using: :btree
+  add_index "food_ingredients", ["food_id", "ingredient_id"], name: "index_food_ingredients_on_food_id_and_ingredient_id", unique: true, using: :btree
+  add_index "food_ingredients", ["food_id"], name: "index_food_ingredients_on_food_id", using: :btree
+  add_index "food_ingredients", ["ingredient_id"], name: "index_food_ingredients_on_ingredient_id", using: :btree
 
   create_table "food_monstars", force: :cascade do |t|
     t.integer  "food_id",    limit: 4
@@ -37,7 +38,6 @@ ActiveRecord::Schema.define(version: 20150613170127) do
 
   create_table "foods", force: :cascade do |t|
     t.string   "name",       limit: 255
-    t.float    "calories",   limit: 24
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
@@ -47,8 +47,9 @@ ActiveRecord::Schema.define(version: 20150613170127) do
   create_table "foodstaff_ingredients", force: :cascade do |t|
     t.integer  "foodstaff_id",  limit: 4
     t.integer  "ingredient_id", limit: 4
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.float    "quantity",      limit: 24
   end
 
   add_index "foodstaff_ingredients", ["foodstaff_id", "ingredient_id"], name: "index_foodstaff_ingredients_on_foodstaff_id_and_ingredient_id", unique: true, using: :btree
@@ -59,6 +60,7 @@ ActiveRecord::Schema.define(version: 20150613170127) do
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.string   "unit",       limit: 255
   end
 
   add_index "foodstaffs", ["name"], name: "index_foodstaffs_on_name", unique: true, using: :btree
@@ -119,6 +121,7 @@ ActiveRecord::Schema.define(version: 20150613170127) do
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.string   "unit",       limit: 255
   end
 
   add_index "ingredients", ["name"], name: "index_ingredients_on_name", unique: true, using: :btree
@@ -136,8 +139,8 @@ ActiveRecord::Schema.define(version: 20150613170127) do
 
   add_index "monstars", ["uuid"], name: "index_monstars_on_uuid", unique: true, using: :btree
 
-  add_foreign_key "food_foodstaffs", "foods"
-  add_foreign_key "food_foodstaffs", "foodstaffs"
+  add_foreign_key "food_ingredients", "foods"
+  add_foreign_key "food_ingredients", "ingredients"
   add_foreign_key "food_monstars", "foods"
   add_foreign_key "food_monstars", "monstars"
   add_foreign_key "foodstaff_ingredients", "foodstaffs"
