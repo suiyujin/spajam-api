@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150613204924) do
+ActiveRecord::Schema.define(version: 20150613220036) do
 
   create_table "food_ingredients", force: :cascade do |t|
     t.integer  "food_id",       limit: 4
@@ -98,10 +98,12 @@ ActiveRecord::Schema.define(version: 20150613204924) do
   add_index "illnesses", ["name"], name: "index_illnesses_on_name", unique: true, using: :btree
 
   create_table "ingredients", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.string   "unit",       limit: 255
+    t.string   "name",                 limit: 255
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.string   "unit",                 limit: 255
+    t.float    "ideal_quantity_man",   limit: 24
+    t.float    "ideal_quantity_woman", limit: 24
   end
 
   add_index "ingredients", ["name"], name: "index_ingredients_on_name", unique: true, using: :btree
