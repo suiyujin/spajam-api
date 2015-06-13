@@ -58,7 +58,8 @@ end
 CSV.foreach('db/seed/illness_monsters.csv') do |row|
   IllnessMonstar.create(illness_id: row[0],
              monstar_id: row[1],
-             outbreak_rate: row[2])
+             outbreak_rate: row[2],
+             decrease_rate: row[3])
 end
 
 # foodstaff_ingredients

@@ -18,6 +18,7 @@
 |result|true||
 |data|Object||
 |data/uuid|string||
+|data/monstar/id|int|モンスターID|
 |data/monstar/name|string|モンスター名|
 |data/monstar/sex|int|性別(男:0, 女:1)|
 |data/monstar/age|int||
