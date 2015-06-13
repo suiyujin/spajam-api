@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150613193802) do
+ActiveRecord::Schema.define(version: 20150613201038) do
 
   create_table "food_ingredients", force: :cascade do |t|
     t.integer  "food_id",       limit: 4
@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(version: 20150613193802) do
     t.datetime "updated_at",           null: false
   end
 
-  add_index "food_monstars", ["food_id", "monstar_id"], name: "index_food_monstars_on_food_id_and_monstar_id", unique: true, using: :btree
   add_index "food_monstars", ["food_id"], name: "index_food_monstars_on_food_id", using: :btree
   add_index "food_monstars", ["monstar_id"], name: "fk_rails_d336adffdc", using: :btree
 
