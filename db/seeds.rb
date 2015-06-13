@@ -41,6 +41,12 @@ CSV.foreach('db/seed/food_ingredients.csv') do |row|
              quantity: row[2])
 end
 
+# food_monstars
+CSV.foreach('db/seed/food_monsters.csv') do |row|
+  FoodMonstar.create(food_id: row[0],
+             monstar_id: row[1])
+end
+
 # illness_ingredients
 CSV.foreach('db/seed/illness_ingredients.csv') do |row|
   IllnessIngredient.create(illness_id: row[0],
