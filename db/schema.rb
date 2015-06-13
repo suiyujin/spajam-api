@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150613165724) do
+ActiveRecord::Schema.define(version: 20150613170127) do
 
   create_table "food_foodstaffs", force: :cascade do |t|
     t.integer  "food_id",      limit: 4
@@ -124,15 +124,14 @@ ActiveRecord::Schema.define(version: 20150613165724) do
   add_index "ingredients", ["name"], name: "index_ingredients_on_name", unique: true, using: :btree
 
   create_table "monstars", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.float    "weight",     limit: 24
-    t.float    "height",     limit: 24
-    t.integer  "sex",        limit: 4
-    t.integer  "age",        limit: 4
-    t.integer  "lifespan",   limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.string   "uuid",       limit: 255, null: false
+    t.string   "name",          limit: 255
+    t.integer  "sex",           limit: 4
+    t.integer  "age",           limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "uuid",          limit: 255, null: false
+    t.float    "hp",            limit: 24
+    t.float    "decrease_rate", limit: 24
   end
 
   add_index "monstars", ["uuid"], name: "index_monstars_on_uuid", unique: true, using: :btree
