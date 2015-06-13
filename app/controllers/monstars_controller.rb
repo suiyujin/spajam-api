@@ -6,7 +6,7 @@ class MonstarsController < ApplicationController
   # GET /monstar
   def index
     uuid = params[:uuid]
-    monstar = Monstar.select(:name, :sex, :age, :hp, :decrease_rate).find_by(uuid: uuid)
+    monstar = Monstar.select(:id, :name, :sex, :age, :hp, :decrease_rate).find_by(uuid: uuid)
 
     if monstar
       monstar_hash = monstar.attributes
