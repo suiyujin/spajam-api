@@ -1,22 +1,20 @@
 require 'ffaker'
 
-class UsersController < ApplicationController
+class MonstarsController < ApplicationController
   protect_from_forgery except: :create
 
-  # POST /users/create
+  # POST /monstar/create
   def create
     uuid = params[:uuid]
-    user = User.new(uuid: uuid)
+    monstar = Monstar.new(uuid: uuid)
 
     # UUID以外はダミーデータを入れる
-    user.name = FFaker::NameJA.first_name
-    user.weight = Random.rand(40.0..80.0).round(1)
-    user.height = Random.rand(150.0..180.0).round(1)
-    user.sex = [0, 1].sample
-    user.age = Random.rand(18..70)
+    monstar.name = FFaker::NameJA.first_name
+    monstar.sex = [0, 1].sample
+    monstar.age = Random.rand(18..70)
 
     begin
-      user.save
+      monstar.save
       res = {
         result: true,
         data: {
