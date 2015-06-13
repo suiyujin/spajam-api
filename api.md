@@ -18,11 +18,11 @@
 |result|true||
 |data|Object||
 |data/uuid|string||
-|data/name|string|モンスター名|
-|data/sex|int|性別(男:0, 女:1)|
-|data/age|int||
-|data/hp|float|HP|
-|data/decrease_rate|float|どのくらい減らすか|
+|data/monstar/name|string|モンスター名|
+|data/monstar/sex|int|性別(男:0, 女:1)|
+|data/monstar/age|int||
+|data/monstar/hp|float|HP|
+|data/monstar/decrease_rate|float|どのくらい減らすか|
 
 **ステータスコード**
 
