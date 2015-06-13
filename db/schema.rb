@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150613092239) do
+ActiveRecord::Schema.define(version: 20150613092346) do
 
   create_table "food_foodstaffs", force: :cascade do |t|
     t.integer  "food_id",      limit: 4
@@ -61,6 +61,16 @@ ActiveRecord::Schema.define(version: 20150613092239) do
     t.integer "generation_end",   limit: 4
   end
 
+  create_table "illness_ingredients", force: :cascade do |t|
+    t.integer  "illness_id",    limit: 4
+    t.integer  "ingredient_id", limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "illness_ingredients", ["illness_id"], name: "index_illness_ingredients_on_illness_id", using: :btree
+  add_index "illness_ingredients", ["ingredient_id"], name: "index_illness_ingredients_on_ingredient_id", using: :btree
+
   create_table "illness_users", force: :cascade do |t|
     t.integer  "illness_id",    limit: 4
     t.integer  "user_id",       limit: 4
@@ -103,6 +113,8 @@ ActiveRecord::Schema.define(version: 20150613092239) do
   add_foreign_key "food_users", "users"
   add_foreign_key "foodstaff_ingredients", "foodstaffs"
   add_foreign_key "foodstaff_ingredients", "ingredients"
+  add_foreign_key "illness_ingredients", "illnesses"
+  add_foreign_key "illness_ingredients", "ingredients"
   add_foreign_key "illness_users", "illnesses"
   add_foreign_key "illness_users", "users"
 end
