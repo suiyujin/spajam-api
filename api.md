@@ -33,7 +33,7 @@
 
 **エンドポイント**
 
-ドメイン/food
+ドメイン/foods/search
 
 **リクエストパラメータ**
 
@@ -47,6 +47,7 @@
 |---|---|---|
 |result|true||
 |data|Object||
+|data/query|string|検索クエリ|
 |data/foods/id|int|料理ID|
 |data/foods/name|string|料理名|
 
