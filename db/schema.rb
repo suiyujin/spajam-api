@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20150613174806) do
 
   add_index "food_monstars", ["food_id", "monstar_id"], name: "index_food_monstars_on_food_id_and_monstar_id", unique: true, using: :btree
   add_index "food_monstars", ["food_id"], name: "index_food_monstars_on_food_id", using: :btree
-  add_index "food_monstars", ["monstar_id"], name: "index_food_monstars_on_monstar_id", using: :btree
+  add_index "food_monstars", ["monstar_id"], name: "fk_rails_d336adffdc", using: :btree
 
   create_table "foods", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(version: 20150613174806) do
 
   add_index "illness_monstars", ["illness_id", "monstar_id"], name: "index_illness_monstars_on_illness_id_and_monstar_id", unique: true, using: :btree
   add_index "illness_monstars", ["illness_id"], name: "index_illness_monstars_on_illness_id", using: :btree
-  add_index "illness_monstars", ["monstar_id"], name: "index_illness_monstars_on_monstar_id", using: :btree
+  add_index "illness_monstars", ["monstar_id"], name: "fk_rails_8b89c4cca0", using: :btree
 
   create_table "illnesses", force: :cascade do |t|
     t.string   "name",          limit: 255
