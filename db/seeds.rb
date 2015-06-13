@@ -28,6 +28,12 @@ CSV.foreach('db/seed/monsters.csv') do |row|
              decrease_rate: row[5])
 end
 
+# foodstaffs
+CSV.foreach('db/seed/foodstuffs.csv') do |row|
+  Foodstaff.create(name: row[0])
+end
+
+
 # food_ingredients
 CSV.foreach('db/seed/food_ingredients.csv') do |row|
   FoodIngredient.create(food_id: row[0],
@@ -47,4 +53,11 @@ CSV.foreach('db/seed/illness_monsters.csv') do |row|
   IllnessMonstar.create(illness_id: row[0],
              monstar_id: row[1],
              outbreak_rate: row[2])
+end
+
+# foodstaff_ingredients
+CSV.foreach('db/seed/foodstuff_ingredients.csv') do |row|
+  FoodstaffIngredient.create(foodstaff_id: row[0],
+             ingredient_id: row[1],
+             quantity: row[2])
 end
