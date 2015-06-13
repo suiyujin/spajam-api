@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150613172050) do
+ActiveRecord::Schema.define(version: 20150613173852) do
 
   create_table "food_ingredients", force: :cascade do |t|
     t.integer  "food_id",       limit: 4
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 20150613172050) do
     t.integer  "ingredient_id", limit: 4
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.boolean  "type",          limit: 1, null: false
   end
 
   add_index "illness_ingredients", ["illness_id", "ingredient_id"], name: "index_illness_ingredients_on_illness_id_and_ingredient_id", unique: true, using: :btree
@@ -108,11 +109,11 @@ ActiveRecord::Schema.define(version: 20150613172050) do
   add_index "illness_monstars", ["monstar_id"], name: "index_illness_monstars_on_monstar_id", using: :btree
 
   create_table "illnesses", force: :cascade do |t|
-    t.string   "name",              limit: 255
-    t.integer  "outbreak_age",      limit: 4
-    t.integer  "survivable_months", limit: 4
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.string   "name",          limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.float    "outbreak_rate", limit: 24
+    t.float    "severity",      limit: 24
   end
 
   add_index "illnesses", ["name"], name: "index_illnesses_on_name", unique: true, using: :btree
