@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150613173852) do
+ActiveRecord::Schema.define(version: 20150613174806) do
 
   create_table "food_ingredients", force: :cascade do |t|
     t.integer  "food_id",       limit: 4
@@ -64,25 +64,6 @@ ActiveRecord::Schema.define(version: 20150613173852) do
   end
 
   add_index "foodstaffs", ["name"], name: "index_foodstaffs_on_name", unique: true, using: :btree
-
-  create_table "generation_illnesses", force: :cascade do |t|
-    t.integer  "generation_id", limit: 4
-    t.integer  "illness_id",    limit: 4
-    t.float    "death_rate",    limit: 24
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-  end
-
-  add_index "generation_illnesses", ["generation_id", "illness_id"], name: "index_generation_illnesses_on_generation_id_and_illness_id", unique: true, using: :btree
-  add_index "generation_illnesses", ["generation_id"], name: "index_generation_illnesses_on_generation_id", using: :btree
-  add_index "generation_illnesses", ["illness_id"], name: "index_generation_illnesses_on_illness_id", using: :btree
-
-  create_table "generations", force: :cascade do |t|
-    t.integer "generation_start", limit: 4
-    t.integer "generation_end",   limit: 4
-  end
-
-  add_index "generations", ["generation_start", "generation_end"], name: "index_generations_on_generation_start_and_generation_end", unique: true, using: :btree
 
   create_table "illness_ingredients", force: :cascade do |t|
     t.integer  "illness_id",    limit: 4
@@ -146,8 +127,6 @@ ActiveRecord::Schema.define(version: 20150613173852) do
   add_foreign_key "food_monstars", "monstars"
   add_foreign_key "foodstaff_ingredients", "foodstaffs"
   add_foreign_key "foodstaff_ingredients", "ingredients"
-  add_foreign_key "generation_illnesses", "generations"
-  add_foreign_key "generation_illnesses", "illnesses"
   add_foreign_key "illness_ingredients", "illnesses"
   add_foreign_key "illness_ingredients", "ingredients"
   add_foreign_key "illness_monstars", "illnesses"
