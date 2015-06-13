@@ -26,25 +26,27 @@ class FoodsController < ApplicationController
     render json: res, status: status_code
   end
 
-  # POST /monstar/create
+  # POST /food/create
   def create
     uuid = params[:uuid]
-    monstar = Monstar.new(uuid: uuid)
+    monstar = Monstar.select(:id).find_by(uuid: uuid)
+    food_id = params[:food_id]
 
-    # UUID以外はダミーデータを入れる
-    monstar.name = FFaker::NameJA.first_name
-    monstar.sex = [0, 1].sample
-    monstar.age = Random.rand(18..70)
+    food_monstar = FoodMonstar.new(food_id: food_id,
+                   monstar_id: monstar.id)
 
     begin
-      monstar.save
+      food_monstar.save
       res = {
         result: true,
         data: {
-          uuid: uuid
+          uuid: uuid,
+          food_id: food_id
         }
       }
       status_code = 200
+
+      # TODO: 病気を調べる、減らす量を計算する
     rescue => e
       res = {
         result: false,

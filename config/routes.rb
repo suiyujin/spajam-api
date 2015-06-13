@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   post 'monstar/create' => 'monstars#create'
   get 'monstar' => 'monstars#index'
 
+  post 'food/create' => 'foods#create'
   get 'foods/search' => 'foods#search'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
