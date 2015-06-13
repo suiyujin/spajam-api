@@ -15,7 +15,9 @@ end
 # ingredients
 CSV.foreach('db/seed/ingredients.csv') do |row|
   Ingredient.create(name: row[1],
-             unit: row[2])
+             unit: row[2],
+             ideal_quantity_man: row[3],
+             ideal_quantity_woman: row[4])
 end
 
 # monstars
