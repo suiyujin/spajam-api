@@ -47,6 +47,16 @@ class FoodsController < ApplicationController
       status_code = 200
 
       # TODO: 病気を調べる、減らす量を計算する
+      # 今はダミーの病気を登録しておく
+      IllnessMonstar.create(illness_id: 1,
+                           monstar_id: monstar.id,
+                           outbreak_rate: 20.0,
+                           decrease_rate: 53.1)
+      IllnessMonstar.create(illness_id: 3,
+                           monstar_id: monstar.id,
+                           outbreak_rate: 20.0,
+                           decrease_rate: 32.4)
+
     rescue => e
       res = {
         result: false,
