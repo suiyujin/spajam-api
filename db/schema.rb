@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150614021219) do
+ActiveRecord::Schema.define(version: 20150614025542) do
 
   create_table "food_ingredients", force: :cascade do |t|
     t.integer  "food_id",       limit: 4
@@ -112,10 +112,10 @@ ActiveRecord::Schema.define(version: 20150614021219) do
     t.string   "name",          limit: 255
     t.integer  "sex",           limit: 4
     t.integer  "age",           limit: 4
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.string   "uuid",          limit: 255, null: false
-    t.float    "hp",            limit: 24
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.string   "uuid",          limit: 255,                   null: false
+    t.float    "hp",            limit: 24,  default: 20000.0
     t.float    "decrease_rate", limit: 24
   end
 
