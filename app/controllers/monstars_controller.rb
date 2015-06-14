@@ -77,7 +77,14 @@ class MonstarsController < ApplicationController
   # POST /monstar/create
   def create
     uuid = params[:uuid]
-    monstar = Monstar.new(uuid: uuid)
+    name = params[:name]
+    age = params[:age]
+    sex = params[:sex]
+
+    monstar = Monstar.new(name: name,
+                          age: age,
+                          sex: sex,
+                          uuid: uuid)
 
     begin
       monstar.save
