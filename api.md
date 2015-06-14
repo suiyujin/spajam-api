@@ -24,6 +24,7 @@
 |data/monstar/age|int||
 |data/monstar/hp|float|HP|
 |data/monstar/decrease_rate|float|どのくらい減らすか|
+|data/monstar/level|int|モンスターのレベル|
 
 **ステータスコード**
 
@@ -80,6 +81,42 @@
 |data/illnesses/name|string|病名|
 |data/illnesses/recommends/name|string|レコメンドされたアイテム名|
 |data/illnesses/recommends/param|float|レコメンドされたアイテムにより発病確率がどのくらい下がるか|
+
+**ステータスコード**
+
+200 : 成功
+500 : 失敗
+
+###リザルト情報取得
+
+**エンドポイント**
+
+ドメイン/result
+
+**リクエストパラメータ**
+
+|パラメータ|型|必須|デフォルト値|サンプル値|説明|
+|---|---|---|---|---|---|
+|uuid|string|o|-|DSA421402131FSAOFS|アプリ固有のID|
+
+**レスポンス**
+
+|フィールド|型|説明|
+|---|---|---|
+|result|true||
+|data|Object||
+|data/uuid|string|UUID|
+|data/monstar/id|int|モンスターID|
+|data/monstar/name|string|モンスター名|
+|data/monstar/level|int|モンスターの到達レベル|
+|data/illness/id|int|主要な病気ID|
+|data/illness/name|string|主要な病名|
+|data/ingredients/id|int|栄養素ID|
+|data/ingredients/name|string|栄養素名|
+|data/ingredients/ideal_quantity|float|理想の量|
+|data/ingredients/quantity|float|実際の量|
+|data/foods/id|int|おすすめメニューID|
+|data/foods/name|int|おすすめメニュー名|
 
 **ステータスコード**
 

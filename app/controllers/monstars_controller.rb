@@ -1,15 +1,14 @@
-require 'ffaker'
-
 class MonstarsController < ApplicationController
   protect_from_forgery except: :create
 
   # GET /monstar
   def index
     uuid = params[:uuid]
-    monstar = Monstar.select(:id, :name, :sex, :age, :hp, :decrease_rate).find_by(uuid: uuid)
+    monstar = Monstar.select(:id, :name, :sex, :age, :hp, :decrease_rate, :created_at).find_by(uuid: uuid)
 
     if monstar
       monstar_hash = monstar.attributes
+      monstar_hash['level'] = ((Time.zone.now - monstar.created_at)/(60*60*24)).floor + 1
       res = {
         result: true,
         data: {
@@ -28,15 +27,57 @@ class MonstarsController < ApplicationController
     render json: res, status: status_code
   end
 
+  # GET /result
+  def result
+    uuid = params[:uuid]
+    monstar = Monstar.select(:id, :name, :sex, :created_at).find_by(uuid: uuid)
+
+    if monstar.present?
+      monstar_hash = monstar.attributes
+      monstar_hash['level'] = ((Time.zone.now - monstar.created_at)/(60*60*24)).floor + 1
+
+      illness = monstar.illness_monstars.select(:illness_id).order('decrease_rate DESC')[0].illness
+      if monstar.sex == 0
+        ingredients = illness.ingredients.select(:id, :name, :ideal_quantity_man)
+      elsif monstar.sex == 1
+        ingredients = illness.ingredients.select(:id, :name, :ideal_quantity_woman)
+      end
+      # 実際の量は今は決め打ち
+      quantity = 2.5
+      ingredients_hash = ingredients.map do |ingredient|
+        ingredient_hash = ingredient.attributes
+        ingredient_hash['quantity'] = quantity
+        ingredient_hash
+      end
+
+      # おすすめメニューも決め打ち
+      foods_hash = [Food.select(:id, :name).find(1).attributes, Food.select(:id, :name).find(2).attributes]
+
+      res = {
+        result: true,
+        data: {
+          uuid: uuid,
+          monstar: monstar.attributes,
+          illness: illness.attributes,
+          ingredients: ingredients_hash,
+          foods: foods_hash
+        }
+      }
+      status_code = 200
+    else
+      res = {
+        result: false
+      }
+      status_code = 500
+    end
+
+    render json: res, status: status_code
+  end
+
   # POST /monstar/create
   def create
     uuid = params[:uuid]
     monstar = Monstar.new(uuid: uuid)
-
-    # UUID以外はダミーデータを入れる
-    monstar.name = FFaker::NameJA.first_name
-    monstar.sex = [0, 1].sample
-    monstar.age = Random.rand(18..70)
 
     begin
       monstar.save
@@ -48,7 +89,7 @@ class MonstarsController < ApplicationController
       }
       status_code = 200
 
-      set_illness_monster monstar
+      set_illness_monster(monstar)
     rescue => e
       res = {
         result: false,
@@ -60,7 +101,7 @@ class MonstarsController < ApplicationController
     render json: res, status: status_code
   end
 
-  def set_illness_monster monstar
+  def set_illness_monster(monstar)
     Illness.select(:id).all.each do |illness|
       IllnessMonstar.create(illness_id: illness.id,
                            monstar_id: monstar.id,

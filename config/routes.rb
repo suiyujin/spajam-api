@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get 'foods/search' => 'foods#search'
 
   get 'illnesses' => 'illnesses#index'
+
+  get 'result' => 'monstars#result'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
