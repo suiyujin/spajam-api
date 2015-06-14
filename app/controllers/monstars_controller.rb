@@ -47,6 +47,8 @@ class MonstarsController < ApplicationController
         }
       }
       status_code = 200
+
+      set_illness_monster monstar
     rescue => e
       res = {
         result: false,
@@ -56,5 +58,14 @@ class MonstarsController < ApplicationController
     end
 
     render json: res, status: status_code
+  end
+
+  def set_illness_monster monstar
+    Illness.select(:id).all.each do |illness|
+      IllnessMonstar.create(illness_id: illness.id,
+                           monstar_id: monstar.id,
+                           outbreak_rate: 0,
+                           decrease_rate: 0)
+    end
   end
 end
