@@ -6,9 +6,21 @@ class MonstarsController < ApplicationController
     uuid = params[:uuid]
     monstar = Monstar.select(:id, :name, :sex, :age, :hp, :decrease_rate, :created_at).find_by(uuid: uuid)
 
-    if monstar
+    begin
       monstar_hash = monstar.attributes
       monstar_hash['level'] = ((Time.zone.now - monstar.created_at)/(60*60*24)).floor + 1
+      # decrease_rateを計算
+      sum_decrease_rate = monstar.illness_monstars.pluck(:decrease_rate).inject(:+)
+
+      decrease_rate = 2000.0 * (monstar.age.to_f / 10.0) + 100.0 * sum_decrease_rate
+
+      # 体力
+      last_eat_time = FoodMonstar.order('created_at DESC').find_by(monstar_id: monstar.id).created_at
+      hp = 20000 - decrease_rate * (Time.zone.now - last_eat_time) / 60 / 20
+
+      monstar.update_attributes(decrease_rate: decrease_rate,
+                               hp: hp)
+
       res = {
         result: true,
         data: {
@@ -17,13 +29,13 @@ class MonstarsController < ApplicationController
         }
       }
       status_code = 200
-    else
+    rescue => e
       res = {
-        result: false
+        result: false,
+        message: e.message
       }
       status_code = 500
     end
-
     render json: res, status: status_code
   end
 
