@@ -47,11 +47,8 @@ class FoodsController < ApplicationController
       }
       status_code = 200
 
-      # TODO: 病気を調べる、減らす量を計算する
-      # 今はダミーの病気を登録しておく
-      food_ingredients = food.food_ingredients
-
-      ingredients_hash = food_ingredients.map do |food_ingredient|
+      # 病気を調べる、減らす量を計算する
+      ingredients_hash = food.food_ingredients.map do |food_ingredient|
         ingredient_hash = food_ingredient.ingredient.attributes
         ingredient_hash['quantity'] = food_ingredient.quantity
         ingredient_hash
